@@ -12,7 +12,7 @@ type
     Button1: TButton;
     Button2: TButton;
     Button3: TButton;
-    procedure Button2Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -26,5 +26,18 @@ implementation
 
 {$R *.dfm}
 
+uses AdminUnit;
+
+
+procedure TMainMenu.Button1Click(Sender: TObject);
+begin
+  MainMenu.Hide;
+
+  try
+    FormAdmin.ShowModal;
+  finally
+    MainMenu.Show;
+  end;
+end;
 
 end.

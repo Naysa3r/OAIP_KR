@@ -127,6 +127,10 @@
             <Form>MainMenu</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="AdminUnit.pas">
+            <Form>FormAdmin</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

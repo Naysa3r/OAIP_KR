@@ -1,6 +1,6 @@
 object MainMenu: TMainMenu
-  Left = 0
-  Top = 0
+  Left = 123
+  Top = 125
   Caption = #1042#1080#1082#1090#1086#1088#1080#1085#1072
   ClientHeight = 441
   ClientWidth = 624
@@ -38,6 +38,7 @@ object MainMenu: TMainMenu
     Font.Style = []
     ParentFont = False
     TabOrder = 0
+    OnClick = Button1Click
   end
   object Button2: TButton
     Left = 32
@@ -52,7 +53,6 @@ object MainMenu: TMainMenu
     Font.Style = []
     ParentFont = False
     TabOrder = 1
-    OnClick = Button2Click
   end
   object Button3: TButton
     Left = 32
@@ -67,6 +67,5 @@ object MainMenu: TMainMenu
     Font.Style = []
     ParentFont = False
     TabOrder = 2
-    OnClick = Button2Click
   end
 end

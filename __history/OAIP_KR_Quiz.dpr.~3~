@@ -1,0 +1,14 @@
+program OAIP_KR_Quiz;
+
+uses
+  Vcl.Forms,
+  OAIP_KR_Quiz_main in 'OAIP_KR_Quiz_main.pas' {MainMenu};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TMainMenu, MainMenu);
+  Application.Run;
+end.
