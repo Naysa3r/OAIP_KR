@@ -35,6 +35,7 @@ object FormAdmin: TFormAdmin
       Height = 326
       ItemHeight = 15
       TabOrder = 0
+      OnClick = ListBoxQuestionsClick
     end
     object BtnCreate: TButton
       Left = 200

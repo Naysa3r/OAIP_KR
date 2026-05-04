@@ -36,7 +36,6 @@ type
     procedure BtnCreateClick(Sender: TObject);
     procedure BtnAddClick(Sender: TObject);
     procedure BtnOpenClick(Sender: TObject);
-    procedure ListBoxQuestionsClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -145,28 +144,6 @@ begin
 
     finally
       CloseFile(F);
-    end;
-  end;
-end;
-procedure TFormAdmin.ListBoxQuestionsClick(Sender: TObject);
-var
-  Idx: Integer;
-begin
-  Idx := ListBoxQuestions.ItemIndex;
-  if Idx >= 0 then
-  begin
-    Memo1.Text := string(Questions[Idx].Text);
-    Edit1.Text := string(Questions[Idx].Answers[0]);
-    Edit2.Text := string(Questions[Idx].Answers[1]);
-    Edit3.Text := string(Questions[Idx].Answers[2]);
-    Edit4.Text := string(Questions[Idx].Answers[3]);
-
-    // Выставляем правильный RadioButton
-    case Questions[Idx].CorrectIndex of
-      0: RadioButton1.Checked := True;
-      1: RadioButton2.Checked := True;
-      2: RadioButton3.Checked := True;
-      3: RadioButton4.Checked := True;
     end;
   end;
 end;
