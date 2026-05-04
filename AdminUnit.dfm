@@ -165,6 +165,15 @@ object FormAdmin: TFormAdmin
       Height = 17
       TabOrder = 11
     end
+    object BtnClearFields: TButton
+      Left = 194
+      Top = 41
+      Width = 75
+      Height = 25
+      Caption = #55358#56825' '#1054#1095#1080#1089#1090#1080#1090#1100
+      TabOrder = 12
+      OnClick = BtnClearFieldsClick
+    end
   end
   object OpenDialog1: TOpenDialog
     Left = 272

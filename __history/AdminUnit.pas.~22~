@@ -33,14 +33,13 @@ type
     Edit4: TEdit;
     RadioButton4: TRadioButton;
     SaveDialog1: TSaveDialog;
-    BtnClearFields: TButton;
+    Button1: TButton;
     procedure BtnCreateClick(Sender: TObject);
     procedure BtnAddClick(Sender: TObject);
     procedure BtnOpenClick(Sender: TObject);
     procedure ListBoxQuestionsClick(Sender: TObject);
     procedure BtnSaveClick(Sender: TObject);
     procedure BtnDeleteClick(Sender: TObject);
-    procedure BtnClearFieldsClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -96,26 +95,6 @@ begin
   RadioButton1.Checked := True;
 
   Memo1.SetFocus; // Возвращаем курсор в поле текста вопроса
-end;
-
-procedure TFormAdmin.BtnClearFieldsClick(Sender: TObject);
-begin
-  // 1. Очищаем текстовые компоненты
-  Memo1.Clear;
-  Edit1.Clear;
-  Edit2.Clear;
-  Edit3.Clear;
-  Edit4.Clear;
-
-  // 2. Сбрасываем выбор правильного ответа на первый вариант (по умолчанию)
-  RadioButton1.Checked := True;
-
-  // 3. Снимаем выделение в списке вопросов, чтобы админ понимал:
-  // сейчас он создает новый контент, а не редактирует старый
-  ListBoxQuestions.ItemIndex := -1;
-
-  // 4. Устанавливаем фокус на текст вопроса для быстрого ввода
-  Memo1.SetFocus;
 end;
 
 procedure TFormAdmin.BtnCreateClick(Sender: TObject);
