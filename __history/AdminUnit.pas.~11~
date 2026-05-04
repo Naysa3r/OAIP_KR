@@ -7,11 +7,6 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls;
 
 type
-  TQuestion = record
-    Text: string[255];          // Текст вопроса
-    Answers: array[0..3] of string[100]; // 4 варианта ответа
-    CorrectIndex: Integer;       // Номер верного (0..3)
-  end;
   TFormAdmin = class(TForm)
     OpenDialog1: TOpenDialog;
     Button1: TButton;
@@ -38,14 +33,11 @@ type
     { Private declarations }
   public
     { Public declarations }
-    var
-      CurrentFilePath: string; // Глобальная переменная для хранения пути к открытому пакет
   end;
 
 var
   FormAdmin: TFormAdmin;
-  F: file of TQuestion;         // Файл средствами языка
-  Questions: array of TQuestion; // Динамическая структура данных
+  CurrentFilePath: string; // Глобальная переменная для хранения пути к открытому пакет
 
 implementation
 
@@ -53,17 +45,33 @@ implementation
 
 procedure TFormAdmin.BtnCreateClick(Sender: TObject);
 begin
+// 1. Спрашиваем у пользователя, где создать файл
   if SaveDialog1.Execute then
   begin
     CurrentFilePath := SaveDialog1.FileName;
 
-    AssignFile(F, CurrentFilePath); // Связываем файловую переменную с путем
-    Rewrite(F);                    // Создаем/перезаписываем файл (пустой)
-    CloseFile(F);                   // Закрываем
+    // 2. Создаем пустой файл.
+    // Если JSON, то запишем пустой массив "[]"
+    with TStringList.Create do
+    try
+      Text := '[]';
+      SaveToFile(CurrentFilePath, TEncoding.UTF8);
+    finally
+      Free;
+    end;
 
-    SetLength(Questions, 0);        // Очищаем динамический массив в памяти
-    ListBoxQuestions.Clear;
+    // 3. Обновляем визуальную часть
     LabelStatus.Caption := 'Пакет: ' + ExtractFileName(CurrentFilePath);
+    ListBoxQuestions.Items.Clear; // Очищаем список (пакет ведь новый)
+
+    // 4. Очищаем поля ввода для первого вопроса
+    Memo1.Lines.Clear;
+    Edit1.Text := ''; Edit2.Text := '';
+    Edit3.Text := ''; Edit4.Text := '';
+    RadioButton1.Checked := True; // По умолчанию правильный - первый
+
+    ShowMessage('Новый пакет успешно создан и готов к работе!');
   end;
 end;
+
 end.

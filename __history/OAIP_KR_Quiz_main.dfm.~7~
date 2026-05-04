@@ -1,7 +1,6 @@
 object MainMenu: TMainMenu
   Left = 123
   Top = 125
-  HorzScrollBar.ParentColor = False
   Caption = #1042#1080#1082#1090#1086#1088#1080#1085#1072
   ClientHeight = 441
   ClientWidth = 624
