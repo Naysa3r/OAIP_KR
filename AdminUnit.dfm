@@ -92,13 +92,14 @@ object FormAdmin: TFormAdmin
       TabOrder = 2
       OnClick = BtnAddClick
     end
-    object Button4: TButton
+    object BtnDelete: TButton
       Left = 113
       Top = 41
       Width = 75
       Height = 25
       Caption = #10060' '#1059#1076#1072#1083#1080#1090#1100
       TabOrder = 3
+      OnClick = BtnDeleteClick
     end
     object BtnSave: TButton
       Left = 448

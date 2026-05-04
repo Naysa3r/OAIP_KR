@@ -23,7 +23,7 @@ type
     Memo1: TMemo;
     Edit1: TEdit;
     BtnAdd: TButton;
-    BtnDelete: TButton;
+    Button4: TButton;
     BtnSave: TButton;
     RadioButton1: TRadioButton;
     Edit2: TEdit;
@@ -38,7 +38,6 @@ type
     procedure BtnOpenClick(Sender: TObject);
     procedure ListBoxQuestionsClick(Sender: TObject);
     procedure BtnSaveClick(Sender: TObject);
-    procedure BtnDeleteClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -111,46 +110,6 @@ begin
     LabelStatus.Caption := 'Пакет: ' + ExtractFileName(CurrentFilePath);
   end;
 end;
-procedure TFormAdmin.BtnDeleteClick(Sender: TObject);
-var
-  Idx, i: Integer;
-begin
-  // 1. Получаем индекс выделенного вопроса
-  Idx := ListBoxQuestions.ItemIndex;
-
-  // Проверка: выделен ли вопрос
-  if Idx < 0 then
-  begin
-    ShowMessage('Выберите вопрос для удаления!');
-    Exit;
-  end;
-
-  // 2. АЛГОРИТМ: Сдвиг элементов массива влево
-  // Мы затираем удаляемый элемент следующим, и так до конца
-  for i := Idx to High(Questions) - 1 do
-  begin
-    Questions[i] := Questions[i + 1];
-  end;
-
-  // 3. Уменьшаем размер динамического массива на 1
-  SetLength(Questions, Length(Questions) - 1);
-
-  // 4. Обновляем интерфейс
-  // Перерисовываем ListBox, так как нумерация и названия могли измениться
-  ListBoxQuestions.Items.Clear;
-  for i := 0 to High(Questions) do
-  begin
-    ListBoxQuestions.Items.Add(IntToStr(i + 1) + '. ' +
-                               Copy(string(Questions[i].Text), 1, 30) + '...');
-  end;
-
-  // Очищаем поля ввода, так как удаленного вопроса больше нет
-  Memo1.Clear;
-  Edit1.Clear; Edit2.Clear; Edit3.Clear; Edit4.Clear;
-
-  ShowMessage('Вопрос удален из памяти. Не забудьте нажать "Сохранить"!');
-end;
-
 procedure TFormAdmin.BtnOpenClick(Sender: TObject);
 var
   TempQ: TQuestion;
