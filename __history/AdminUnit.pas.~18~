@@ -24,7 +24,7 @@ type
     Edit1: TEdit;
     BtnAdd: TButton;
     Button4: TButton;
-    BtnSave: TButton;
+    Button5: TButton;
     RadioButton1: TRadioButton;
     Edit2: TEdit;
     RadioButton2: TRadioButton;
@@ -37,7 +37,6 @@ type
     procedure BtnAddClick(Sender: TObject);
     procedure BtnOpenClick(Sender: TObject);
     procedure ListBoxQuestionsClick(Sender: TObject);
-    procedure BtnSaveClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -149,41 +148,6 @@ begin
     end;
   end;
 end;
-procedure TFormAdmin.BtnSaveClick(Sender: TObject);
-begin
-var
-  i: Integer;
-begin
-  // 1. Проверяем, открыт ли какой-либо файл для записи
-  if CurrentFilePath = '' then
-  begin
-    ShowMessage('Ошибка: Не выбран файл для сохранения!');
-    Exit;
-  end;
-
-  // 2. Связываем файловую переменную с путем к файлу
-  AssignFile(F, CurrentFilePath);
-
-  try
-    // 3. Открываем файл в режиме перезаписи (Rewrite)
-    // Это очистит старое содержимое и запишет актуальный массив Questions
-    Rewrite(F);
-
-    // 4. Алгоритм записи: проходим по всему динамическому массиву
-    for i := 0 to High(Questions) do
-    begin
-      // Записываем каждую структуру TQuestion в файл средствами языка
-      Write(F, Questions[i]);
-    end;
-
-    ShowMessage('Пакет успешно сохранен на диск. Вопросов: ' + IntToStr(Length(Questions)));
-  finally
-    // 5. Обязательно закрываем файл, чтобы сохранить данные и освободить ресурсы
-    CloseFile(F);
-  end;
-end;
-end;
-
 procedure TFormAdmin.ListBoxQuestionsClick(Sender: TObject);
 var
   Idx: Integer;

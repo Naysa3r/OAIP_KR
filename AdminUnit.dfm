@@ -100,13 +100,14 @@ object FormAdmin: TFormAdmin
       Caption = #10060' '#1059#1076#1072#1083#1080#1090#1100
       TabOrder = 3
     end
-    object Button5: TButton
+    object BtnSave: TButton
       Left = 448
       Top = 41
       Width = 95
       Height = 25
       Caption = #55357#56510' '#1057#1086#1093#1088#1072#1085#1080#1090#1100
       TabOrder = 4
+      OnClick = BtnSaveClick
     end
     object RadioButton1: TRadioButton
       Left = 32
