@@ -45,14 +45,13 @@ object FormAdmin: TFormAdmin
       TabOrder = 1
       OnClick = BtnCreateClick
     end
-    object BtnOpen: TButton
+    object Button1: TButton
       Left = 200
       Top = 10
       Width = 81
       Height = 25
       Caption = #55357#56589' '#1074#1099#1073#1088#1072#1090#1100
       TabOrder = 2
-      OnClick = BtnOpenClick
     end
   end
   object GroupBox1: TGroupBox

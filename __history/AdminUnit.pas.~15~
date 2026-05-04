@@ -14,7 +14,7 @@ type
   end;
   TFormAdmin = class(TForm)
     OpenDialog1: TOpenDialog;
-    BtnOpen: TButton;
+    Button1: TButton;
     BtnCreate: TButton;
     Panel1: TPanel;
     ListBoxQuestions: TListBox;
@@ -35,7 +35,6 @@ type
     SaveDialog1: TSaveDialog;
     procedure BtnCreateClick(Sender: TObject);
     procedure BtnAddClick(Sender: TObject);
-    procedure BtnOpenClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -69,11 +68,11 @@ begin
   SetLength(Questions, NewIdx + 1);
 
   // 3. Заполняем структуру данными из интерфейса
-  Questions[NewIdx].Text := ShortString(Memo1.Text);
-  Questions[NewIdx].Answers[0] := ShortString(Edit1.Text);
-  Questions[NewIdx].Answers[1] := ShortString(Edit2.Text);
-  Questions[NewIdx].Answers[2] := ShortString(Edit3.Text);
-  Questions[NewIdx].Answers[3] := ShortString(Edit4.Text);
+  Questions[NewIdx].Text := Memo1.Text;
+  Questions[NewIdx].Answers[0] := Edit1.Text;
+  Questions[NewIdx].Answers[1] := Edit2.Text;
+  Questions[NewIdx].Answers[2] := Edit3.Text;
+  Questions[NewIdx].Answers[3] := Edit4.Text;
 
   // Определяем индекс правильного ответа
   if RadioButton1.Checked then Questions[NewIdx].CorrectIndex := 0
@@ -108,44 +107,4 @@ begin
     LabelStatus.Caption := 'Пакет: ' + ExtractFileName(CurrentFilePath);
   end;
 end;
-procedure TFormAdmin.BtnOpenClick(Sender: TObject);
-var
-  TempQ: TQuestion;
-begin
-  if OpenDialog1.Execute then
-  begin
-    CurrentFilePath := OpenDialog1.FileName;
-
-    // Связываем файл и открываем для чтения
-    AssignFile(F, CurrentFilePath);
-    Reset(F); // Reset открывает существующий файл
-
-    try
-      // 1. Очищаем старые данные в памяти
-      SetLength(Questions, 0);
-      ListBoxQuestions.Items.Clear;
-
-      // 2. Цикл чтения до конца файла (Алгоритм загрузки)
-      while not Eof(F) do
-      begin
-        Read(F, TempQ); // Читаем одну запись
-
-        // Увеличиваем массив и добавляем данные
-        SetLength(Questions, Length(Questions) + 1);
-        Questions[High(Questions)] := TempQ;
-
-        // Добавляем заголовок в визуальный список
-        ListBoxQuestions.Items.Add(IntToStr(Length(Questions)) + '. ' +
-                                   Copy(string(TempQ.Text), 1, 30) + '...');
-      end;
-
-      LabelStatus.Caption := 'Пакет: ' + ExtractFileName(CurrentFilePath);
-      ShowMessage('Загружено вопросов: ' + IntToStr(Length(Questions)));
-
-    finally
-      CloseFile(F);
-    end;
-  end;
-end;
-
 end.
