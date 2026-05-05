@@ -16,14 +16,15 @@ type
     EditUserName: TEdit;
     BtnStart: TButton;
     Label1: TLabel;
-    LabelQuestionNum: TLabel;
+    Label2: TLabel;
     LabelPackageName: TLabel;
     Memo1: TMemo;
-    rbAnswer1: TRadioButton;
-    rbAnswer2: TRadioButton;
-    rbAnswer3: TRadioButton;
-    rbAnswer4: TRadioButton;
-    BtnNext: TButton;
+    RadioButton1: TRadioButton;
+    RadioButton2: TRadioButton;
+    RadioButton3: TRadioButton;
+    RadioButton4: TRadioButton;
+    Button2: TButton;
+    Button3: TButton;
     StringGrid1: TStringGrid;
     Label4: TLabel;
     Timer1: TTimer;
@@ -31,8 +32,6 @@ type
     OpenDialog1: TOpenDialog;
     procedure Timer1Timer(Sender: TObject);
     procedure BtnStartClick(Sender: TObject);
-    procedure ShowQuestion(Idx: Integer);
-    procedure BtnNextClick(Sender: TObject);
   private
     { Private declarations }
     SecondsPassed: Integer;
@@ -51,74 +50,6 @@ var
 implementation
 
 {$R *.dfm}
-
-procedure TFormQuiz.ShowQuestion(Idx: Integer);
-begin
-  // Обновляем метки (Label-ы)
-  LabelPackageName.Caption := 'Вы проходите пакет вопросов: ' + ExtractFileName(CurrentFilePath);
-  LabelQuestionNum.Caption := 'Номер вопроса: ' + IntToStr(Idx + 1) + ' из ' + IntToStr(Length(UserQuestions));
-
-  // Выводим текст вопроса
-  Memo1.Text := string(UserQuestions[Idx].Text);
-
-  // Выводим варианты ответов на RadioButton-ы
-  rbAnswer1.Caption := string(UserQuestions[Idx].Answers[0]);
-  rbAnswer2.Caption := string(UserQuestions[Idx].Answers[1]);
-  rbAnswer3.Caption := string(UserQuestions[Idx].Answers[2]);
-  rbAnswer4.Caption := string(UserQuestions[Idx].Answers[3]);
-
-  // Сбрасываем выделение, чтобы пользователь выбирал заново
-  rbAnswer1.Checked := False;
-  rbAnswer2.Checked := False;
-  rbAnswer3.Checked := False;
-  rbAnswer4.Checked := False;
-
-  // Управляем доступностью кнопки "Назад"
-  BtnBack.Enabled := (Idx > 0);
-
-  // Если вопрос последний, меняем текст на кнопке "Далее"
-  if Idx = High(UserQuestions) then
-    BtnNext.Caption := 'Завершить'
-  else
-    BtnNext.Caption := 'Далее';
-end;
-
-procedure TFormQuiz.BtnNextClick(Sender: TObject);
-var
-  SelectedAnswer: Integer;
-begin
-  // 1. Проверяем, выбрал ли пользователь хоть какой-то ответ
-  SelectedAnswer := -1;
-  if rbAnswer1.Checked then SelectedAnswer := 0
-  else if rbAnswer2.Checked then SelectedAnswer := 1
-  else if rbAnswer3.Checked then SelectedAnswer := 2
-  else if rbAnswer4.Checked then SelectedAnswer := 3;
-
-  if SelectedAnswer = -1 then
-  begin
-    ShowMessage('Выберите вариант ответа!');
-    Exit;
-  end;
-
-  // 2. Проверяем правильность (только если идем вперед впервые)
-  if SelectedAnswer = UserQuestions[CurrentQ].CorrectIndex then
-    Inc(Score);
-
-  // 3. Переход к следующему вопросу или завершение
-  if CurrentQ < High(UserQuestions) then
-  begin
-    Inc(CurrentQ);
-    ShowQuestion(CurrentQ);
-  end
-  else
-  begin
-    // ТЕСТ ОКОНЧЕН
-    Timer1.Enabled := False; // Останавливаем часы
-    ShowMessage('Викторина завершена!');
-    SaveResult; // Сохраняем в CSV
-    ShowFinalResults; // Переходим на 3-ю вкладку
-  end;
-end;
 
 procedure TFormQuiz.BtnStartClick(Sender: TObject);
 var
@@ -171,7 +102,7 @@ begin
 
     // Запускаем таймер и отображаем первый вопрос
     Timer1.Enabled := True;
-    ShowQuestion(0);
+    //ShowQuestion(0);
   end;
 end;
 
