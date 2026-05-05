@@ -34,8 +34,6 @@ type
     procedure ShowQuestion(Idx: Integer);
     procedure BtnNextClick(Sender: TObject);
     procedure SaveResult;
-    procedure ShowFinalResults;
-    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
     SecondsPassed: Integer;
@@ -103,53 +101,6 @@ begin
     ]);
     Writeln(ResFile, ResLine);
   finally
-    CloseFile(ResFile);
-  end;
-end;
-
-procedure TFormQuiz.ShowFinalResults;
-var
-  ResFile: TextFile;
-  Line: string;
-  Row: Integer;
-  SList: TStringList;
-begin
-  PageControl1.ActivePageIndex := 2; // Переходим на вкладку результатов
-
-  // Настройка заголовков таблицы
-  StringGrid1.Cells[0, 0] := 'Имя';
-  StringGrid1.Cells[1, 0] := 'Баллы';
-  StringGrid1.Cells[2, 0] := 'Пакет';
-  StringGrid1.Cells[3, 0] := 'Время';
-  StringGrid1.Cells[4, 0] := 'Дата';
-
-  AssignFile(ResFile, 'results.csv');
-  Reset(ResFile);
-
-  Row := 1;
-  SList := TStringList.Create;
-  try
-    SList.Delimiter := ';';
-    SList.StrictDelimiter := True; // Чтобы пробелы не считались разделителями
-
-    while not Eof(ResFile) do
-    begin
-      Readln(ResFile, Line);
-      SList.DelimitedText := Line;
-
-      if SList.Count >= 5 then
-      begin
-        StringGrid1.RowCount := Row + 1; // Увеличиваем количество строк в таблице
-        StringGrid1.Cells[0, Row] := SList[0];
-        StringGrid1.Cells[1, Row] := SList[1];
-        StringGrid1.Cells[2, Row] := SList[2];
-        StringGrid1.Cells[3, Row] := SList[3];
-        StringGrid1.Cells[4, Row] := SList[4];
-        Inc(Row);
-      end;
-    end;
-  finally
-    SList.Free;
     CloseFile(ResFile);
   end;
 end;
@@ -244,19 +195,6 @@ begin
     Timer1.Enabled := True;
     ShowQuestion(0);
   end;
-end;
-
-procedure TFormQuiz.FormCreate(Sender: TObject);
-begin
-  // Устанавливаем первую вкладку (Вход) при запуске
-  PageControl1.ActivePageIndex := 0;
-
-  // Здесь же можно настроить заголовки таблицы, чтобы они были сразу
-  StringGrid1.Cells[0, 0] := 'Имя';
-  StringGrid1.Cells[1, 0] := 'Баллы';
-  StringGrid1.Cells[2, 0] := 'Пакет';
-  StringGrid1.Cells[3, 0] := 'Время';
-  StringGrid1.Cells[4, 0] := 'Дата';
 end;
 
 procedure TFormQuiz.Timer1Timer(Sender: TObject);

@@ -38,7 +38,7 @@ object FormQuiz: TFormQuiz
         Font.Style = []
         ParentFont = False
       end
-      object Edit1: TEdit
+      object EditUserName: TEdit
         Left = 112
         Top = 200
         Width = 281
@@ -47,26 +47,27 @@ object FormQuiz: TFormQuiz
         TabOrder = 0
         TextHint = #1042#1072#1096#1077' '#1080#1084#1103
       end
-      object Button1: TButton
+      object BtnStart: TButton
         Left = 408
         Top = 199
         Width = 107
         Height = 25
         Caption = #1053#1072#1095#1072#1090#1100
         TabOrder = 1
+        OnClick = BtnStartClick
       end
     end
     object QuizPage: TTabSheet
       Caption = #1042#1080#1082#1090#1086#1088#1080#1085#1072
       ImageIndex = 1
-      object Label2: TLabel
+      object LabelQuestionNum: TLabel
         Left = 32
         Top = 40
         Width = 93
         Height = 15
         Caption = #1053#1086#1084#1077#1088' '#1074#1086#1087#1088#1086#1089#1072': '
       end
-      object Label3: TLabel
+      object LabelPackageName: TLabel
         Left = 32
         Top = 19
         Width = 171
@@ -103,7 +104,7 @@ object FormQuiz: TFormQuiz
         ReadOnly = True
         TabOrder = 0
       end
-      object RadioButton1: TRadioButton
+      object rbAnswer1: TRadioButton
         Left = 71
         Top = 224
         Width = 234
@@ -111,7 +112,7 @@ object FormQuiz: TFormQuiz
         Caption = #1054#1090#1074#1077#1090' 1'
         TabOrder = 1
       end
-      object RadioButton2: TRadioButton
+      object rbAnswer2: TRadioButton
         Left = 316
         Top = 224
         Width = 234
@@ -119,7 +120,7 @@ object FormQuiz: TFormQuiz
         Caption = #1054#1090#1074#1077#1090' 2'
         TabOrder = 2
       end
-      object RadioButton3: TRadioButton
+      object rbAnswer3: TRadioButton
         Left = 71
         Top = 295
         Width = 234
@@ -127,7 +128,7 @@ object FormQuiz: TFormQuiz
         Caption = #1054#1090#1074#1077#1090' 3'
         TabOrder = 3
       end
-      object RadioButton4: TRadioButton
+      object rbAnswer4: TRadioButton
         Left = 316
         Top = 295
         Width = 234
@@ -135,21 +136,14 @@ object FormQuiz: TFormQuiz
         Caption = #1054#1090#1074#1077#1090' 4'
         TabOrder = 4
       end
-      object Button2: TButton
+      object BtnNext: TButton
         Left = 510
         Top = 368
         Width = 75
         Height = 25
         Caption = #1044#1072#1083#1077#1077
         TabOrder = 5
-      end
-      object Button3: TButton
-        Left = 414
-        Top = 368
-        Width = 75
-        Height = 25
-        Caption = #1053#1072#1079#1072#1076
-        TabOrder = 6
+        OnClick = BtnNextClick
       end
     end
     object ResultPage: TTabSheet
@@ -188,7 +182,8 @@ object FormQuiz: TFormQuiz
     Top = 2
   end
   object OpenDialog1: TOpenDialog
-    Left = 524
+    Filter = #1087#1072#1082#1077#1090' '#1074#1086#1087#1088#1086#1089#1086#1074'|*.dat'
+    Left = 596
     Top = 226
   end
 end

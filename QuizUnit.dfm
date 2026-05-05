@@ -11,13 +11,14 @@ object FormQuiz: TFormQuiz
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poDesigned
+  OnCreate = FormCreate
   TextHeight = 15
   object PageControl1: TPageControl
     Left = 0
     Top = 0
     Width = 624
     Height = 441
-    ActivePage = QuizPage
+    ActivePage = ResultPage
     Align = alClient
     TabOrder = 0
     object LoginPage: TTabSheet

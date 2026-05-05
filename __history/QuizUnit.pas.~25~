@@ -35,7 +35,6 @@ type
     procedure BtnNextClick(Sender: TObject);
     procedure SaveResult;
     procedure ShowFinalResults;
-    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
     SecondsPassed: Integer;
@@ -137,7 +136,7 @@ begin
       Readln(ResFile, Line);
       SList.DelimitedText := Line;
 
-      if SList.Count >= 5 then
+      if SList.Count >= 10 then
       begin
         StringGrid1.RowCount := Row + 1; // Увеличиваем количество строк в таблице
         StringGrid1.Cells[0, Row] := SList[0];
@@ -244,19 +243,6 @@ begin
     Timer1.Enabled := True;
     ShowQuestion(0);
   end;
-end;
-
-procedure TFormQuiz.FormCreate(Sender: TObject);
-begin
-  // Устанавливаем первую вкладку (Вход) при запуске
-  PageControl1.ActivePageIndex := 0;
-
-  // Здесь же можно настроить заголовки таблицы, чтобы они были сразу
-  StringGrid1.Cells[0, 0] := 'Имя';
-  StringGrid1.Cells[1, 0] := 'Баллы';
-  StringGrid1.Cells[2, 0] := 'Пакет';
-  StringGrid1.Cells[3, 0] := 'Время';
-  StringGrid1.Cells[4, 0] := 'Дата';
 end;
 
 procedure TFormQuiz.Timer1Timer(Sender: TObject);
