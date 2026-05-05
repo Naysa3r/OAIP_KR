@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
-  <Transactions>
-    <Transaction>2026.04.21 20:43:40.121,=D:\OneDrive\Документы\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2026.04.21 20:45:45.005,D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\OAIP_KR_Quiz.dfm=D:\OneDrive\Документы\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
-    <Transaction>2026.04.21 20:45:45.005,D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\OAIP_KR_Quiz.pas=D:\OneDrive\Документы\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2026.04.21 20:47:58.411,D:\OneDrive\Документы\Embarcadero\Studio\Projects\OAIP_KR.dproj=D:\OneDrive\Документы\Embarcadero\Studio\Projects\Project2.dproj</Transaction>
-    <Transaction>2026.04.21 20:48:18.009,D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\OAIP_KR.dproj=D:\OneDrive\Документы\Embarcadero\Studio\Projects\OAIP_KR.dproj</Transaction>
-    <Transaction>2026.04.21 20:49:20.325,D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\OAIP_KR_Quiz_main.dfm=D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\OAIP_KR_Quiz.dfm</Transaction>
-    <Transaction>2026.04.21 20:49:20.325,D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\OAIP_KR_Quiz_main.pas=D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\OAIP_KR_Quiz.pas</Transaction>
-    <Transaction>2026.04.21 20:50:12.705,D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\OAIP_KR_Quiz.dproj=D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\OAIP_KR.dproj</Transaction>
-    <Transaction>2026.04.21 21:51:23.221,=D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\Unit1.pas</Transaction>
-    <Transaction>2026.04.21 21:56:03.339,D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\AdminUnit.pas=D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\Unit1.pas</Transaction>
-    <Transaction>2026.04.21 21:56:03.339,D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\AdminUnit.dfm=D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\Unit1.dfm</Transaction>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.005,D:\OneDrive\Документы\Embarcadero\Studio\Projects\Unit1.pas=D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\OAIP_KR_Quiz.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.009,D:\OneDrive\Документы\Embarcadero\Studio\Projects\OAIP_KR.dproj=D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\OAIP_KR.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.705,D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\OAIP_KR.dproj=D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\OAIP_KR_Quiz.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.221,=D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.339,D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\Unit1.pas=D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\AdminUnit.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.121,=D:\OneDrive\Документы\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.005,D:\OneDrive\Документы\Embarcadero\Studio\Projects\Unit1.dfm=D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\OAIP_KR_Quiz.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.339,D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\Unit1.dfm=D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\AdminUnit.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.325,D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\OAIP_KR_Quiz.pas=D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\OAIP_KR_Quiz_main.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.411,D:\OneDrive\Документы\Embarcadero\Studio\Projects\Project2.dproj=D:\OneDrive\Документы\Embarcadero\Studio\Projects\OAIP_KR.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.325,D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\OAIP_KR_Quiz.dfm=D:\OneDrive\Документы\Учеба\1\ОАИП\OAIP_KR\OAIP_KR_Quiz_main.dfm</Transaction>
   </Transactions>
 </BorlandProject>

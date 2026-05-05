@@ -1,0 +1,56 @@
+unit QuizUnit;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.Grids,
+  Vcl.ExtCtrls;
+
+type
+  TFormQuiz = class(TForm)
+    PageControl1: TPageControl;
+    LoginPage: TTabSheet;
+    QuizPage: TTabSheet;
+    ResultPage: TTabSheet;
+    Edit1: TEdit;
+    Button1: TButton;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Memo1: TMemo;
+    RadioButton1: TRadioButton;
+    RadioButton2: TRadioButton;
+    RadioButton3: TRadioButton;
+    RadioButton4: TRadioButton;
+    Button2: TButton;
+    Button3: TButton;
+    StringGrid1: TStringGrid;
+    Label4: TLabel;
+    Timer1: TTimer;
+    LabelTimer: TLabel;
+    OpenDialog1: TOpenDialog;
+    procedure Timer1Timer(Sender: TObject);
+  private
+    { Private declarations }
+    SecondsPassed: Integer;
+  public
+    { Public declarations }
+  end;
+
+var
+  FormQuiz: TFormQuiz;
+
+implementation
+
+{$R *.dfm}
+
+
+procedure TFormQuiz.Timer1Timer(Sender: TObject);
+begin
+  Inc(SecondsPassed); // Увеличиваем счетчик на 1
+  // Выводим в Label в формате 00:00
+  LabelTimer.Caption := Format('Время: %.2d:%.2d', [SecondsPassed div 60, SecondsPassed mod 60]);
+end;
+
+end.

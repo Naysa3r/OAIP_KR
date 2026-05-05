@@ -20,7 +20,6 @@ object FormAdmin: TFormAdmin
     Align = alLeft
     Caption = 'Panel1'
     TabOrder = 0
-    ExplicitTop = 8
     object LabelStatus: TLabel
       Left = 16
       Top = 45
@@ -64,7 +63,6 @@ object FormAdmin: TFormAdmin
     Align = alClient
     Caption = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1085#1080#1077' '#1074#1086#1087#1088#1086#1089#1086#1074
     TabOrder = 1
-    ExplicitLeft = 303
     object Memo1: TMemo
       Left = 32
       Top = 88
