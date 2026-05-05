@@ -56,7 +56,7 @@ var
   TempQ: TQuestion;
 begin
   // 1. Проверка: введено ли имя
-  if (Trim(EditUserName.Text) = '') or (EditUserName.Text = 'Ваше имя') then
+  if Trim(EditUserName.Text) = '' then
   begin
     ShowMessage('Пожалуйста, введите ваше имя!');
     Exit;
@@ -110,7 +110,7 @@ procedure TFormQuiz.Timer1Timer(Sender: TObject);
 begin
   Inc(SecondsPassed); // Увеличиваем счетчик на 1
   // Выводим в Label в формате 00:00
-  LabelTimer.Caption := Format('%.2d:%.2d', [SecondsPassed div 60, SecondsPassed mod 60]);
+  LabelTimer.Caption := Format('Время: %.2d:%.2d', [SecondsPassed div 60, SecondsPassed mod 60]);
 end;
 
 end.

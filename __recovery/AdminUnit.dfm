@@ -1,0 +1,184 @@
+object FormAdmin: TFormAdmin
+  Left = 102
+  Top = 125
+  Caption = #1055#1072#1085#1077#1083#1100' '#1072#1076#1084#1080#1085#1080#1089#1090#1088#1072#1090#1086#1088#1072
+  ClientHeight = 441
+  ClientWidth = 876
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  Position = poDesigned
+  TextHeight = 15
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 297
+    Height = 441
+    Align = alLeft
+    Caption = 'Panel1'
+    TabOrder = 0
+    object LabelStatus: TLabel
+      Left = 16
+      Top = 45
+      Width = 149
+      Height = 15
+      Caption = #1055#1072#1082#1077#1090' '#1074#1086#1087#1088#1086#1089#1086#1074' '#1085#1077' '#1074#1099#1073#1088#1072#1085
+    end
+    object ListBoxQuestions: TListBox
+      Left = 16
+      Top = 88
+      Width = 265
+      Height = 326
+      ItemHeight = 15
+      TabOrder = 0
+      OnClick = ListBoxQuestionsClick
+    end
+    object BtnCreate: TButton
+      Left = 200
+      Top = 41
+      Width = 81
+      Height = 25
+      Caption = #10133' '#1089#1086#1079#1076#1072#1090#1100
+      TabOrder = 1
+      OnClick = BtnCreateClick
+    end
+    object BtnOpen: TButton
+      Left = 200
+      Top = 10
+      Width = 81
+      Height = 25
+      Caption = #55357#56589' '#1074#1099#1073#1088#1072#1090#1100
+      TabOrder = 2
+      OnClick = BtnOpenClick
+    end
+  end
+  object GroupBox1: TGroupBox
+    Left = 297
+    Top = 0
+    Width = 579
+    Height = 441
+    Align = alClient
+    Caption = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1085#1080#1077' '#1074#1086#1087#1088#1086#1089#1086#1074
+    TabOrder = 1
+    object Memo1: TMemo
+      Left = 32
+      Top = 88
+      Width = 513
+      Height = 49
+      Lines.Strings = (
+        'Memo1')
+      TabOrder = 0
+    end
+    object Edit1: TEdit
+      Left = 64
+      Top = 168
+      Width = 481
+      Height = 49
+      AutoSize = False
+      TabOrder = 1
+      Text = 'Edit1'
+    end
+    object BtnAdd: TButton
+      Left = 32
+      Top = 41
+      Width = 75
+      Height = 25
+      Caption = #55357#56534' '#1044#1086#1073#1072#1074#1080#1090#1100
+      TabOrder = 2
+      OnClick = BtnAddClick
+    end
+    object BtnDelete: TButton
+      Left = 113
+      Top = 41
+      Width = 75
+      Height = 25
+      Caption = #10060' '#1059#1076#1072#1083#1080#1090#1100
+      TabOrder = 3
+      OnClick = BtnDeleteClick
+    end
+    object BtnSave: TButton
+      Left = 448
+      Top = 41
+      Width = 95
+      Height = 25
+      Caption = #55357#56510' '#1057#1086#1093#1088#1072#1085#1080#1090#1100
+      TabOrder = 4
+      OnClick = BtnSaveClick
+    end
+    object RadioButton1: TRadioButton
+      Left = 32
+      Top = 184
+      Width = 17
+      Height = 17
+      TabOrder = 5
+    end
+    object Edit2: TEdit
+      Left = 64
+      Top = 231
+      Width = 481
+      Height = 49
+      AutoSize = False
+      TabOrder = 6
+      Text = 'Edit2'
+    end
+    object RadioButton2: TRadioButton
+      Left = 32
+      Top = 248
+      Width = 17
+      Height = 17
+      TabOrder = 7
+    end
+    object Edit3: TEdit
+      Left = 64
+      Top = 296
+      Width = 481
+      Height = 49
+      AutoSize = False
+      TabOrder = 8
+      Text = 'Edit3'
+    end
+    object RadioButton3: TRadioButton
+      Left = 32
+      Top = 312
+      Width = 17
+      Height = 17
+      TabOrder = 9
+    end
+    object Edit4: TEdit
+      Left = 64
+      Top = 362
+      Width = 481
+      Height = 52
+      AutoSize = False
+      TabOrder = 10
+      Text = 'Edit4'
+    end
+    object RadioButton4: TRadioButton
+      Left = 32
+      Top = 381
+      Width = 17
+      Height = 17
+      TabOrder = 11
+    end
+    object BtnClearFields: TButton
+      Left = 194
+      Top = 41
+      Width = 75
+      Height = 25
+      Caption = #55358#56825' '#1054#1095#1080#1089#1090#1080#1090#1100
+      TabOrder = 12
+      OnClick = BtnClearFieldsClick
+    end
+  end
+  object OpenDialog1: TOpenDialog
+    Left = 272
+    Top = 65528
+  end
+  object SaveDialog1: TSaveDialog
+    Left = 272
+    Top = 32
+  end
+end

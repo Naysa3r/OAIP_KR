@@ -110,7 +110,7 @@ procedure TFormQuiz.Timer1Timer(Sender: TObject);
 begin
   Inc(SecondsPassed); // Увеличиваем счетчик на 1
   // Выводим в Label в формате 00:00
-  LabelTimer.Caption := Format('%.2d:%.2d', [SecondsPassed div 60, SecondsPassed mod 60]);
+  LabelTimer.Caption := Format('Время: %.2d:%.2d', [SecondsPassed div 60, SecondsPassed mod 60]);
 end;
 
 end.

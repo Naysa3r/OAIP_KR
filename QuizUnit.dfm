@@ -38,7 +38,7 @@ object FormQuiz: TFormQuiz
         Font.Style = []
         ParentFont = False
       end
-      object Edit1: TEdit
+      object EditUserName: TEdit
         Left = 112
         Top = 200
         Width = 281
@@ -47,13 +47,14 @@ object FormQuiz: TFormQuiz
         TabOrder = 0
         TextHint = #1042#1072#1096#1077' '#1080#1084#1103
       end
-      object Button1: TButton
+      object BtnStart: TButton
         Left = 408
         Top = 199
         Width = 107
         Height = 25
         Caption = #1053#1072#1095#1072#1090#1100
         TabOrder = 1
+        OnClick = BtnStartClick
       end
     end
     object QuizPage: TTabSheet
@@ -66,7 +67,7 @@ object FormQuiz: TFormQuiz
         Height = 15
         Caption = #1053#1086#1084#1077#1088' '#1074#1086#1087#1088#1086#1089#1072': '
       end
-      object Label3: TLabel
+      object LabelPackageName: TLabel
         Left = 32
         Top = 19
         Width = 171
@@ -188,6 +189,7 @@ object FormQuiz: TFormQuiz
     Top = 2
   end
   object OpenDialog1: TOpenDialog
+    Filter = #1087#1072#1082#1077#1090' '#1074#1086#1087#1088#1086#1089#1086#1074'|*.dat'
     Left = 524
     Top = 226
   end
