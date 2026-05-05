@@ -34,13 +34,13 @@ type
     procedure ShowQuestion(Idx: Integer);
     procedure BtnNextClick(Sender: TObject);
     procedure SaveResult;
+    procedure ShowFinalResults;
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
     SecondsPassed: Integer;
   public
     { Public declarations }
-    procedure ShowFinalResults;
   end;
 
 var

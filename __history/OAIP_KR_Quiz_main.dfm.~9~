@@ -69,6 +69,5 @@ object MainMenu: TMainMenu
     Font.Style = []
     ParentFont = False
     TabOrder = 2
-    OnClick = Button3Click
   end
 end

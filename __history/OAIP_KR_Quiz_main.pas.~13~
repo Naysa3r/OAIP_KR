@@ -56,9 +56,9 @@ end;
 procedure TMainMenu.Button3Click(Sender: TObject);
 begin
   try
+    FormQuiz.ShowModal;
     FormQuiz.ShowFinalResults;
     FormQuiz.PageControl1.ActivePageIndex := 2;
-    FormQuiz.ShowModal;
   finally
     MainMenu.Show;
   end;

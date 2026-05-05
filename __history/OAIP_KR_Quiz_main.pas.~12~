@@ -14,7 +14,6 @@ type
     Button3: TButton;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
-    procedure Button3Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -53,14 +52,4 @@ begin
   end;
 end;
 
-procedure TMainMenu.Button3Click(Sender: TObject);
-begin
-  try
-    FormQuiz.ShowFinalResults;
-    FormQuiz.PageControl1.ActivePageIndex := 2;
-    FormQuiz.ShowModal;
-  finally
-    MainMenu.Show;
-  end;
-end;
 end.
