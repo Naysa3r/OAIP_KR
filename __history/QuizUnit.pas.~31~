@@ -19,12 +19,11 @@ type
     LabelQuestionNum: TLabel;
     LabelPackageName: TLabel;
     Memo1: TMemo;
-    RadioButton1: TRadioButton;
-    RadioButton2: TRadioButton;
-    RadioButton3: TRadioButton;
-    RadioButton4: TRadioButton;
-    Button2: TButton;
-    Button3: TButton;
+    rbAnswer1: TRadioButton;
+    rbAnswer2: TRadioButton;
+    rbAnswer3: TRadioButton;
+    rbAnswer4: TRadioButton;
+    BtnNext: TButton;
     StringGrid1: TStringGrid;
     Label4: TLabel;
     Timer1: TTimer;
@@ -32,11 +31,16 @@ type
     OpenDialog1: TOpenDialog;
     procedure Timer1Timer(Sender: TObject);
     procedure BtnStartClick(Sender: TObject);
+    procedure ShowQuestion(Idx: Integer);
+    procedure BtnNextClick(Sender: TObject);
+    procedure SaveResult;
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
     SecondsPassed: Integer;
   public
     { Public declarations }
+    procedure ShowFinalResults;
   end;
 
 var
@@ -45,7 +49,7 @@ var
   CurrentFilePath: string;           // Имя выбранного пакета
   Score: Integer;                    // Счетчик правильных ответов
   CurrentQ: Integer;                 // Номер текущего вопроса
-  SecondsPassed: Integer;            // Для таймера
+  SecondsPassed: Integer;            // Прошло времени
 
 implementation
 
@@ -53,7 +57,7 @@ implementation
 
 procedure TFormQuiz.ShowQuestion(Idx: Integer);
 begin
-  // Обновляем метки (Label-ы)
+
   LabelPackageName.Caption := 'Вы проходите пакет вопросов: ' + ExtractFileName(CurrentFilePath);
   LabelQuestionNum.Caption := 'Номер вопроса: ' + IntToStr(Idx + 1) + ' из ' + IntToStr(Length(UserQuestions));
 
@@ -72,14 +76,119 @@ begin
   rbAnswer3.Checked := False;
   rbAnswer4.Checked := False;
 
-  // Управляем доступностью кнопки "Назад"
-  BtnBack.Enabled := (Idx > 0);
-
   // Если вопрос последний, меняем текст на кнопке "Далее"
   if Idx = High(UserQuestions) then
     BtnNext.Caption := 'Завершить'
   else
     BtnNext.Caption := 'Далее';
+end;
+
+procedure TFormQuiz.SaveResult;
+var
+  ResFile: TextFile;
+  ResLine: string;
+begin
+  AssignFile(ResFile, 'results.csv');
+  // Если файла нет — создаем, если есть — открываем для добавления
+  if FileExists('results.csv') then Append(ResFile) else Rewrite(ResFile);
+
+  try
+    // Формируем строку: Имя;Баллы;Пакет;Время;Дата
+    ResLine := Format('%s;%d;%s;%s;%s', [
+      EditUserName.Text,
+      Score,
+      ExtractFileName(CurrentFilePath),
+      LabelTimer.Caption,
+      DateToStr(Now)
+    ]);
+    Writeln(ResFile, ResLine);
+  finally
+    CloseFile(ResFile);
+  end;
+end;
+
+procedure TFormQuiz.ShowFinalResults;
+var
+  ResFile: TextFile;
+  Line: string;
+  Row: Integer;
+  SList: TStringList;
+begin
+  PageControl1.ActivePageIndex := 2; // Переходим на вкладку результатов
+
+  // Настройка заголовков таблицы
+  StringGrid1.Cells[0, 0] := 'Имя';
+  StringGrid1.Cells[1, 0] := 'Баллы';
+  StringGrid1.Cells[2, 0] := 'Пакет';
+  StringGrid1.Cells[3, 0] := 'Время';
+  StringGrid1.Cells[4, 0] := 'Дата';
+
+  AssignFile(ResFile, 'results.csv');
+  Reset(ResFile);
+
+  Row := 1;
+  SList := TStringList.Create;
+  try
+    SList.Delimiter := ';';
+    SList.StrictDelimiter := True; // Чтобы пробелы не считались разделителями
+
+    while not Eof(ResFile) do
+    begin
+      Readln(ResFile, Line);
+      SList.DelimitedText := Line;
+
+      if SList.Count >= 5 then
+      begin
+        StringGrid1.RowCount := Row + 1; // Увеличиваем количество строк в таблице
+        StringGrid1.Cells[0, Row] := SList[0];
+        StringGrid1.Cells[1, Row] := SList[1];
+        StringGrid1.Cells[2, Row] := SList[2];
+        StringGrid1.Cells[3, Row] := SList[3];
+        StringGrid1.Cells[4, Row] := SList[4];
+        Inc(Row);
+      end;
+    end;
+  finally
+    SList.Free;
+    CloseFile(ResFile);
+  end;
+end;
+
+procedure TFormQuiz.BtnNextClick(Sender: TObject);
+var
+  SelectedAnswer: Integer;
+begin
+  // 1. Проверяем, выбрал ли пользователь хоть какой-то ответ
+  SelectedAnswer := -1;
+  if rbAnswer1.Checked then SelectedAnswer := 0
+  else if rbAnswer2.Checked then SelectedAnswer := 1
+  else if rbAnswer3.Checked then SelectedAnswer := 2
+  else if rbAnswer4.Checked then SelectedAnswer := 3;
+
+  if SelectedAnswer = -1 then
+  begin
+    ShowMessage('Выберите вариант ответа!');
+    Exit;
+  end;
+
+  // 2. Проверяем правильность (только если идем вперед впервые)
+  if SelectedAnswer = UserQuestions[CurrentQ].CorrectIndex then
+    Inc(Score);
+
+  // 3. Переход к следующему вопросу или завершение
+  if CurrentQ < High(UserQuestions) then
+  begin
+    Inc(CurrentQ);
+    ShowQuestion(CurrentQ);
+  end
+  else
+  begin
+    // ТЕСТ ОКОНЧЕН
+    Timer1.Enabled := False; // Останавливаем часы
+    ShowMessage('Викторина завершена!');
+    SaveResult; // Сохраняем в CSV
+    ShowFinalResults; // Переходим на 3-ю вкладку
+  end;
 end;
 
 procedure TFormQuiz.BtnStartClick(Sender: TObject);
@@ -135,6 +244,19 @@ begin
     Timer1.Enabled := True;
     ShowQuestion(0);
   end;
+end;
+
+procedure TFormQuiz.FormCreate(Sender: TObject);
+begin
+  // Устанавливаем первую вкладку (Вход) при запуске
+  PageControl1.ActivePageIndex := 0;
+
+  // Здесь же можно настроить заголовки таблицы, чтобы они были сразу
+  StringGrid1.Cells[0, 0] := 'Имя';
+  StringGrid1.Cells[1, 0] := 'Баллы';
+  StringGrid1.Cells[2, 0] := 'Пакет';
+  StringGrid1.Cells[3, 0] := 'Время';
+  StringGrid1.Cells[4, 0] := 'Дата';
 end;
 
 procedure TFormQuiz.Timer1Timer(Sender: TObject);

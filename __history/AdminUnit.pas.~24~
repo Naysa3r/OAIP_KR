@@ -46,7 +46,7 @@ type
   public
     { Public declarations }
     var
-      CurrentFilePath: string; // Глобальная переменная для хранения пути к открытому пакету
+      CurrentFilePath: string; // Глобальная переменная для хранения пути к открытому пакет
   end;
 
 var
@@ -62,58 +62,59 @@ procedure TFormAdmin.BtnAddClick(Sender: TObject);
 var
   NewIdx: Integer;
 begin
-  // Проверка, выбран ли файл пакета
+  // 1. Проверяем, выбран ли файл пакета
   if CurrentFilePath = '' then
   begin
     ShowMessage('Сначала создайте или откройте пакет вопросов!');
     Exit;
   end;
 
-  // Увеличение размера динамического массива
+  // 2. Увеличиваем размер динамического массива (выполнение требования структуры данных)
   NewIdx := Length(Questions); // Индекс нового элемента
   SetLength(Questions, NewIdx + 1);
 
-  // Заполнение структуры данными из интерфейса
+  // 3. Заполняем структуру данными из интерфейса
   Questions[NewIdx].Text := ShortString(Memo1.Text);
   Questions[NewIdx].Answers[0] := ShortString(Edit1.Text);
   Questions[NewIdx].Answers[1] := ShortString(Edit2.Text);
   Questions[NewIdx].Answers[2] := ShortString(Edit3.Text);
   Questions[NewIdx].Answers[3] := ShortString(Edit4.Text);
 
-  // Определение индекса правильного ответа
+  // Определяем индекс правильного ответа
   if RadioButton1.Checked then Questions[NewIdx].CorrectIndex := 0
   else if RadioButton2.Checked then Questions[NewIdx].CorrectIndex := 1
   else if RadioButton3.Checked then Questions[NewIdx].CorrectIndex := 2
   else Questions[NewIdx].CorrectIndex := 3;
 
-  // Обновление визуального списка ListBox
-  // Вписывание начала вопроса для наглядности выбираемого элемента
+  // 4. Обновляем визуальный список ListBox
+  // Добавляем туда начало вопроса, чтобы админ ориентировался
   ListBoxQuestions.Items.Add(IntToStr(NewIdx + 1) + '. ' + Copy(Memo1.Text, 1, 30) + '...');
 
-  // Очистка поля для ввода следующего вопроса
+  // 5. Очищаем поля для ввода следующего вопроса
   Memo1.Clear;
   Edit1.Clear; Edit2.Clear; Edit3.Clear; Edit4.Clear;
   RadioButton1.Checked := True;
 
-  Memo1.SetFocus; // Возвращение курсора в поле текста вопроса
+  Memo1.SetFocus; // Возвращаем курсор в поле текста вопроса
 end;
 
 procedure TFormAdmin.BtnClearFieldsClick(Sender: TObject);
 begin
-  // Очистка текстовых компонентов
+  // 1. Очищаем текстовые компоненты
   Memo1.Clear;
   Edit1.Clear;
   Edit2.Clear;
   Edit3.Clear;
   Edit4.Clear;
 
-  // По-умолчанию выбран первый вариант
+  // 2. Сбрасываем выбор правильного ответа на первый вариант (по умолчанию)
   RadioButton1.Checked := True;
 
-  // Убирается выделение вопроса для наглядности, что вопрос создается, а не редактируется
+  // 3. Снимаем выделение в списке вопросов, чтобы админ понимал:
+  // сейчас он создает новый контент, а не редактирует старый
   ListBoxQuestions.ItemIndex := -1;
 
-  // Устанавливается фокус на текст вопроса для быстрого ввода
+  // 4. Устанавливаем фокус на текст вопроса для быстрого ввода
   Memo1.SetFocus;
 end;
 
@@ -123,11 +124,11 @@ begin
   begin
     CurrentFilePath := SaveDialog1.FileName;
 
-    AssignFile(F, CurrentFilePath); // Связка файловой переменной с путем
-    Rewrite(F);                    // Создание/перезапись файла
-    CloseFile(F);                   // Закрытие
+    AssignFile(F, CurrentFilePath); // Связываем файловую переменную с путем
+    Rewrite(F);                    // Создаем/перезаписываем файл (пустой)
+    CloseFile(F);                   // Закрываем
 
-    SetLength(Questions, 0);        // Очистка динамического массива в памяти
+    SetLength(Questions, 0);        // Очищаем динамический массив в памяти
     ListBoxQuestions.Clear;
     LabelStatus.Caption := 'Пакет: ' + ExtractFileName(CurrentFilePath);
   end;
@@ -136,7 +137,7 @@ procedure TFormAdmin.BtnDeleteClick(Sender: TObject);
 var
   Idx, i: Integer;
 begin
-  // Получение индекса выделенного вопроса
+  // 1. Получаем индекс выделенного вопроса
   Idx := ListBoxQuestions.ItemIndex;
 
   // Проверка: выделен ли вопрос
@@ -146,18 +147,18 @@ begin
     Exit;
   end;
 
-  // Сдвиг элементов массива влево
-  // Затирается удаляемый элемент следующим, и так до конца
+  // 2. АЛГОРИТМ: Сдвиг элементов массива влево
+  // Мы затираем удаляемый элемент следующим, и так до конца
   for i := Idx to High(Questions) - 1 do
   begin
     Questions[i] := Questions[i + 1];
   end;
 
-  // Уменьшение размера динамического массива на 1
+  // 3. Уменьшаем размер динамического массива на 1
   SetLength(Questions, Length(Questions) - 1);
 
-  // Обновление интерфейса
-  // Перерисовывание ListBox, так как нумерация и названия могли измениться
+  // 4. Обновляем интерфейс
+  // Перерисовываем ListBox, так как нумерация и названия могли измениться
   ListBoxQuestions.Items.Clear;
   for i := 0 to High(Questions) do
   begin
@@ -165,7 +166,7 @@ begin
                                Copy(string(Questions[i].Text), 1, 30) + '...');
   end;
 
-  // Очищаение поля ввода, так как удаленного вопроса больше нет
+  // Очищаем поля ввода, так как удаленного вопроса больше нет
   Memo1.Clear;
   Edit1.Clear; Edit2.Clear; Edit3.Clear; Edit4.Clear;
 
@@ -180,25 +181,25 @@ begin
   begin
     CurrentFilePath := OpenDialog1.FileName;
 
-    // Связывание файла и открытие для чтения
+    // Связываем файл и открываем для чтения
     AssignFile(F, CurrentFilePath);
     Reset(F); // Reset открывает существующий файл
 
     try
-      // Очистка старых данных в памяти
+      // 1. Очищаем старые данные в памяти
       SetLength(Questions, 0);
       ListBoxQuestions.Items.Clear;
 
-      // Цикл чтения до конца файла (Алгоритм загрузки)
+      // 2. Цикл чтения до конца файла (Алгоритм загрузки)
       while not Eof(F) do
       begin
-        Read(F, TempQ); // Чтение одной записи
+        Read(F, TempQ); // Читаем одну запись
 
-        // Увеличение массива и добавление данных
+        // Увеличиваем массив и добавляем данные
         SetLength(Questions, Length(Questions) + 1);
         Questions[High(Questions)] := TempQ;
 
-        // Добавление заголовка в визуальный список
+        // Добавляем заголовок в визуальный список
         ListBoxQuestions.Items.Add(IntToStr(Length(Questions)) + '. ' +
                                    Copy(string(TempQ.Text), 1, 30) + '...');
       end;
@@ -216,31 +217,31 @@ begin
 var
   i: Integer;
 begin
-  // Проверка, открыт ли какой-либо файл для записи
+  // 1. Проверяем, открыт ли какой-либо файл для записи
   if CurrentFilePath = '' then
   begin
     ShowMessage('Ошибка: Не выбран файл для сохранения!');
     Exit;
   end;
 
-  // Связывание файловой переменной с путем к файлу
+  // 2. Связываем файловую переменную с путем к файлу
   AssignFile(F, CurrentFilePath);
 
   try
-    // Открытие файла в режиме перезаписи (Rewrite)
+    // 3. Открываем файл в режиме перезаписи (Rewrite)
     // Это очистит старое содержимое и запишет актуальный массив Questions
     Rewrite(F);
 
-    // Алгоритм записи: проходит по всему динамическому массиву
+    // 4. Алгоритм записи: проходим по всему динамическому массиву
     for i := 0 to High(Questions) do
     begin
-      // Запись каждой структуру TQuestion в файл
+      // Записываем каждую структуру TQuestion в файл средствами языка
       Write(F, Questions[i]);
     end;
 
     ShowMessage('Пакет успешно сохранен на диск. Вопросов: ' + IntToStr(Length(Questions)));
   finally
-    // Закрытие файла, чтобы сохранить данные и освободить ресурсы
+    // 5. Обязательно закрываем файл, чтобы сохранить данные и освободить ресурсы
     CloseFile(F);
   end;
 end;
@@ -259,7 +260,7 @@ begin
     Edit3.Text := string(Questions[Idx].Answers[2]);
     Edit4.Text := string(Questions[Idx].Answers[3]);
 
-    // Выставление правильных RadioButton
+    // Выставляем правильный RadioButton
     case Questions[Idx].CorrectIndex of
       0: RadioButton1.Checked := True;
       1: RadioButton2.Checked := True;

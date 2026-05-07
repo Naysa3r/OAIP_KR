@@ -69,7 +69,7 @@ object FormAdmin: TFormAdmin
       Width = 513
       Height = 49
       Lines.Strings = (
-        'Memo1')
+        '')
       TabOrder = 0
     end
     object Edit1: TEdit
@@ -79,7 +79,6 @@ object FormAdmin: TFormAdmin
       Height = 49
       AutoSize = False
       TabOrder = 1
-      Text = 'Edit1'
     end
     object BtnAdd: TButton
       Left = 32
@@ -122,7 +121,6 @@ object FormAdmin: TFormAdmin
       Height = 49
       AutoSize = False
       TabOrder = 6
-      Text = 'Edit2'
     end
     object RadioButton2: TRadioButton
       Left = 32
@@ -138,7 +136,6 @@ object FormAdmin: TFormAdmin
       Height = 49
       AutoSize = False
       TabOrder = 8
-      Text = 'Edit3'
     end
     object RadioButton3: TRadioButton
       Left = 32
@@ -154,7 +151,6 @@ object FormAdmin: TFormAdmin
       Height = 52
       AutoSize = False
       TabOrder = 10
-      Text = 'Edit4'
     end
     object RadioButton4: TRadioButton
       Left = 32

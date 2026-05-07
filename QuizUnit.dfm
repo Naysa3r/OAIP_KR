@@ -26,7 +26,7 @@ object FormQuiz: TFormQuiz
       object Label1: TLabel
         Left = 112
         Top = 120
-        Width = 403
+        Width = 364
         Height = 38
         Alignment = taCenter
         Caption = 

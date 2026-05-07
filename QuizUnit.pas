@@ -49,7 +49,7 @@ var
   CurrentFilePath: string;           // Имя выбранного пакета
   Score: Integer;                    // Счетчик правильных ответов
   CurrentQ: Integer;                 // Номер текущего вопроса
-  SecondsPassed: Integer;            // Для таймера
+  SecondsPassed: Integer;            // Прошло времени
 
 implementation
 
@@ -57,26 +57,26 @@ implementation
 
 procedure TFormQuiz.ShowQuestion(Idx: Integer);
 begin
-  // Обновляем метки (Label-ы)
+
   LabelPackageName.Caption := 'Вы проходите пакет вопросов: ' + ExtractFileName(CurrentFilePath);
   LabelQuestionNum.Caption := 'Номер вопроса: ' + IntToStr(Idx + 1) + ' из ' + IntToStr(Length(UserQuestions));
 
-  // Выводим текст вопроса
+  // Текст вопроса
   Memo1.Text := string(UserQuestions[Idx].Text);
 
-  // Выводим варианты ответов на RadioButton-ы
+  // Варианты ответов на RadioButton-ы
   rbAnswer1.Caption := string(UserQuestions[Idx].Answers[0]);
   rbAnswer2.Caption := string(UserQuestions[Idx].Answers[1]);
   rbAnswer3.Caption := string(UserQuestions[Idx].Answers[2]);
   rbAnswer4.Caption := string(UserQuestions[Idx].Answers[3]);
 
-  // Сбрасываем выделение, чтобы пользователь выбирал заново
+  // Сброс выбранных radiobutton
   rbAnswer1.Checked := False;
   rbAnswer2.Checked := False;
   rbAnswer3.Checked := False;
   rbAnswer4.Checked := False;
 
-  // Если вопрос последний, меняем текст на кнопке "Далее"
+  // Если вопрос последний, меняется текст на кнопке "Далее"
   if Idx = High(UserQuestions) then
     BtnNext.Caption := 'Завершить'
   else
@@ -89,11 +89,11 @@ var
   ResLine: string;
 begin
   AssignFile(ResFile, 'results.csv');
-  // Если файла нет — создаем, если есть — открываем для добавления
+  // Если файла нет - создается, если есть - открывается для добавления
   if FileExists('results.csv') then Append(ResFile) else Rewrite(ResFile);
 
   try
-    // Формируем строку: Имя;Баллы;Пакет;Время;Дата
+    // Формируется строка: Имя;Баллы;Пакет;Время;Дата
     ResLine := Format('%s;%d;%s;%s;%s', [
       EditUserName.Text,
       Score,
@@ -114,9 +114,9 @@ var
   Row: Integer;
   SList: TStringList;
 begin
-  PageControl1.ActivePageIndex := 2; // Переходим на вкладку результатов
+  PageControl1.ActivePageIndex := 2; // Переход на вкладку результатов
 
-  // Настройка заголовков таблицы
+  // Заголовки таблицы
   StringGrid1.Cells[0, 0] := 'Имя';
   StringGrid1.Cells[1, 0] := 'Баллы';
   StringGrid1.Cells[2, 0] := 'Пакет';
@@ -139,7 +139,7 @@ begin
 
       if SList.Count >= 5 then
       begin
-        StringGrid1.RowCount := Row + 1; // Увеличиваем количество строк в таблице
+        StringGrid1.RowCount := Row + 1; // Увеличение количества строк в таблице
         StringGrid1.Cells[0, Row] := SList[0];
         StringGrid1.Cells[1, Row] := SList[1];
         StringGrid1.Cells[2, Row] := SList[2];
@@ -158,7 +158,7 @@ procedure TFormQuiz.BtnNextClick(Sender: TObject);
 var
   SelectedAnswer: Integer;
 begin
-  // 1. Проверяем, выбрал ли пользователь хоть какой-то ответ
+  // Проверка на выбранный ответ
   SelectedAnswer := -1;
   if rbAnswer1.Checked then SelectedAnswer := 0
   else if rbAnswer2.Checked then SelectedAnswer := 1
@@ -171,11 +171,11 @@ begin
     Exit;
   end;
 
-  // 2. Проверяем правильность (только если идем вперед впервые)
+  // Проверка правильности
   if SelectedAnswer = UserQuestions[CurrentQ].CorrectIndex then
     Inc(Score);
 
-  // 3. Переход к следующему вопросу или завершение
+  // Переход к следующему вопросу или завершение
   if CurrentQ < High(UserQuestions) then
   begin
     Inc(CurrentQ);
@@ -183,11 +183,11 @@ begin
   end
   else
   begin
-    // ТЕСТ ОКОНЧЕН
-    Timer1.Enabled := False; // Останавливаем часы
+    // Конец теста
+    Timer1.Enabled := False; // Остановка таймера
     ShowMessage('Викторина завершена!');
-    SaveResult; // Сохраняем в CSV
-    ShowFinalResults; // Переходим на 3-ю вкладку
+    SaveResult; // Сохранение в CSV
+    ShowFinalResults; // Переход на 3-ю вкладку
   end;
 end;
 
@@ -195,19 +195,19 @@ procedure TFormQuiz.BtnStartClick(Sender: TObject);
 var
   TempQ: TQuestion;
 begin
-  // 1. Проверка: введено ли имя
+  // Проверка ввода имени
   if (Trim(EditUserName.Text) = '') or (EditUserName.Text = 'Ваше имя') then
   begin
     ShowMessage('Пожалуйста, введите ваше имя!');
     Exit;
   end;
 
-  // 2. Выбор пакета вопросов
+  // Выбор пакета вопросов
   if OpenDialog1.Execute then
   begin
     CurrentFilePath := OpenDialog1.FileName;
 
-    // 3. АЛГОРИТМ ЗАГРУЗКИ (средствами языка)
+    // Алгоритм загрузки вопросов
     AssignFile(F, CurrentFilePath);
     Reset(F);
     try
@@ -222,25 +222,25 @@ begin
       CloseFile(F);
     end;
 
-    // Проверяем, не пустой ли файл
+    // Проверка на пустой файл
     if Length(UserQuestions) = 0 then
     begin
       ShowMessage('В выбранном пакете нет вопросов!');
       Exit;
     end;
 
-    // 4. Подготовка к тесту
+    // Подготовка к тесту
     Score := 0;
     CurrentQ := 0;
     SecondsPassed := 0;
 
-    // Выводим название пакета на следующую форму
+    // Вывод названия пакет на форму
     LabelPackageName.Caption := 'Пакет: ' + ExtractFileName(CurrentFilePath);
 
-    // 5. Переход на вкладку теста (TabSheet2)
+    // Переход на вкладку теста
     PageControl1.ActivePageIndex := 1;
 
-    // Запускаем таймер и отображаем первый вопрос
+    // Запуск таймера и отображение первого вопроса
     Timer1.Enabled := True;
     ShowQuestion(0);
   end;
@@ -248,10 +248,10 @@ end;
 
 procedure TFormQuiz.FormCreate(Sender: TObject);
 begin
-  // Устанавливаем первую вкладку (Вход) при запуске
+  // Выбор первой вкладки при запуске
   PageControl1.ActivePageIndex := 0;
 
-  // Здесь же можно настроить заголовки таблицы, чтобы они были сразу
+  // Заголовки таблицы
   StringGrid1.Cells[0, 0] := 'Имя';
   StringGrid1.Cells[1, 0] := 'Баллы';
   StringGrid1.Cells[2, 0] := 'Пакет';
@@ -261,8 +261,8 @@ end;
 
 procedure TFormQuiz.Timer1Timer(Sender: TObject);
 begin
-  Inc(SecondsPassed); // Увеличиваем счетчик на 1
-  // Выводим в Label в формате 00:00
+  Inc(SecondsPassed); // Увечение счетчика таймера на 1
+  // Вывод в формате 00:00
   LabelTimer.Caption := Format('%.2d:%.2d', [SecondsPassed div 60, SecondsPassed mod 60]);
 end;
 

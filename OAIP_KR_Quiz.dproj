@@ -131,6 +131,10 @@
             <Form>FormAdmin</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="QuizUnit.pas">
+            <Form>FormQuiz</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
