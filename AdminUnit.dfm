@@ -170,10 +170,14 @@ object FormAdmin: TFormAdmin
     end
   end
   object OpenDialog1: TOpenDialog
+    DefaultExt = '.dat'
+    Filter = #1055#1072#1082#1077#1090' '#1074#1086#1087#1088#1086#1089#1086#1074'|*.dat'
     Left = 272
     Top = 65528
   end
   object SaveDialog1: TSaveDialog
+    DefaultExt = '.dat'
+    Filter = #1055#1072#1082#1077#1090' '#1074#1086#1087#1088#1086#1089#1086#1074'|*.dat'
     Left = 272
     Top = 32
   end

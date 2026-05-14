@@ -49,8 +49,8 @@ begin
   MainMenu.Hide;
 
   try
-    FormQuiz.PageControl1.ActivePageIndex := 0;
     FormQuiz.ShowModal;
+    FormQuiz.QuizPage.PageIndex := 1;
   finally
     MainMenu.Show;
   end;

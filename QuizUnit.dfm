@@ -18,11 +18,11 @@ object FormQuiz: TFormQuiz
     Top = 0
     Width = 624
     Height = 441
-    ActivePage = ResultPage
     Align = alClient
     TabOrder = 0
     object LoginPage: TTabSheet
       Caption = #1042#1093#1086#1076
+      TabVisible = False
       object Label1: TLabel
         Left = 112
         Top = 120
@@ -61,6 +61,7 @@ object FormQuiz: TFormQuiz
     object QuizPage: TTabSheet
       Caption = #1042#1080#1082#1090#1086#1088#1080#1085#1072
       ImageIndex = 1
+      TabVisible = False
       object LabelQuestionNum: TLabel
         Left = 32
         Top = 40
@@ -150,6 +151,7 @@ object FormQuiz: TFormQuiz
     object ResultPage: TTabSheet
       Caption = #1056#1077#1079#1091#1083#1100#1090#1072#1090#1099
       ImageIndex = 2
+      TabVisible = False
       object Label4: TLabel
         Left = 224
         Top = 16
@@ -165,7 +167,7 @@ object FormQuiz: TFormQuiz
       end
       object StringGrid1: TStringGrid
         Left = 0
-        Top = 48
+        Top = 68
         Width = 616
         Height = 363
         Align = alBottom
@@ -174,6 +176,7 @@ object FormQuiz: TFormQuiz
         FixedCols = 0
         RowCount = 11
         TabOrder = 0
+        ExplicitTop = 48
       end
     end
   end
