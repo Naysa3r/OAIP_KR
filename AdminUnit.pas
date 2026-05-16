@@ -69,6 +69,14 @@ begin
     Exit;
   end;
 
+  // Проверка, вписан ли вопрос
+  if Trim(Memo1.Text) = '' then
+  begin
+    ShowMessage('Поле вопроса не заполнено!');
+    Exit;
+  end;
+
+
   // Увеличение размера динамического массива
   NewIdx := Length(Questions); // Индекс нового элемента
   SetLength(Questions, NewIdx + 1);
